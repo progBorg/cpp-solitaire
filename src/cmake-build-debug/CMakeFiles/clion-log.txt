@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/driescavelaars/Documents/UTwente/MOD05 Signals and models/PiE/C++ Solitaire"
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/driescavelaars/Documents/UTwente/MOD05 Signals and models/PiE/C++ Solitaire/cmake-build-debug
