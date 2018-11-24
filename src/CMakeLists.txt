@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11.2)
-project(C___Solitaire)
+project(cpp_solitaire)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(C___Solitaire main.cpp Stock.h Card.h Stack.h Pile.h Waste.h)
+add_executable(cpp_solitaire main.cpp Stock.cpp Card.cpp Stack.cpp Pile.cpp Waste.cpp)

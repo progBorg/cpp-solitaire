@@ -8,21 +8,24 @@
 #ifndef C_SOLITAIRE_WASTE_H
 #define C_SOLITAIRE_WASTE_H
 
-class Waste : public Pile { //inherit from Pile
-// by default private
-// ------------ Variables ------------
+#include "Pile.h"
 
-public: // constructor, queries and commands
+//inherit from Pile
+class Waste : public Pile {
+	// by default private
+	// ------------ Variables ------------
 
-// ------------ Constructor ------------
-    Waste() : Pile(5,2) { // inherit from Pile
+// constructors, queries and commands
+public:
 
-    }
+	// ------------ Constructor ------------
+	// inherit from Pile
+    Waste(int x, int y); // Inherits from Pile
 
-// ------------ Queries ------------
+	// ------------ Queries ------------
 
 
-// ------------ Commands ------------
+	// ------------ Commands ------------
 
 
 

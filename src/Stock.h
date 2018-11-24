@@ -10,33 +10,30 @@
 
 #include "Pile.h"
 
-class Stock : public Pile { //inherit from Pile
-// by default private
-// ------------ Variables ------------
+//inherit from Pile
+class Stock : public Pile {
+	// by default private
+	// ------------ Variables ------------
     std::vector<Card> cards; // vector containing all the cards in the current stock object
 
-public: // constructor, queries and commands
+// constructors, queries and commands
+public:
 
-// ------------ Constructor ------------
-    Stock() : Pile(5,2) { // inherit from Pile
+	// ------------ Constructor ------------
+    Stock(int x, int y); // Inherits from pile
 
-    }
-
-// ------------ Queries ------------
+	// ------------ Queries ------------
 
 
-// ------------ Commands ------------
-/**
- * Removes to last card from the stock.
- */
-    void removeCard() {
-        cards.pop_back();
-    }
-
-///What does this function do?
-    void addSet() {
-
-    }
+	// ------------ Commands ------------
+	/**
+	 * Removes to last card from the stock.
+	 */
+    void removeCard();
+	/**
+	 * Add a set of cards (only use to reset stock)
+	 */
+    void addSet();
 
 };
 
