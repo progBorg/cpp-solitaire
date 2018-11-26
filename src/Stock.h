@@ -14,7 +14,7 @@
 class Stock : public Pile {
 	// by default private
 	// ------------ Variables ------------
-    std::vector<Card> cards; // vector containing all the cards in the current stock object
+    Stack stack = Stack(0);
 
 // constructors, queries and commands
 public:
@@ -29,11 +29,11 @@ public:
 	/**
 	 * Removes to last card from the stock.
 	 */
-    void removeCard();
+    Card* removeCard();
 	/**
-	 * Add a set of cards (only use to reset stock)
+	 * Add a set of cards (only used to reset stock)
 	 */
-    void addSet();
+    void addSet(Stack stack);
 
 };
 

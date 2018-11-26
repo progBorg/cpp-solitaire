@@ -14,7 +14,7 @@
 class Stack {
 
     // ------------ Variables ------------
-    std::vector<Card> cards; // vector containing all the cards in the current Stack object
+    std::vector<Card*> cards; // vector containing all the cards in the current Stack object
 
 // constructor, queries and commands
 public:
@@ -23,31 +23,23 @@ public:
 	/**
 	 * The constructor for the Stack class.
 	 */
-    Stack(int numCards);
+    explicit Stack(int numCards);
 
 	// ------------ Queries ------------
 	/**
-	 * @return the current stack object
+	 * @return 'true' if there are no more cards present in the stack, 'false' otherwise
 	 */
-    Stack getStack();
-    /**
-	 * @return the card object of the last card present in the current stack
-	 */
-    Card getTopCard();
+    bool isEmpty();
 
 	// ------------ Commands ------------
 	/**
 	 * @param card the card that needs to be added to the stack
 	 */
-    void addCard(Card card);
+    void addCard(Card* card);
     /**
 	 * Removes to last card from the stack.
 	 */
-    void removeCard();
-    /**
-	 * Add a set of cards
-	 */
-    void addSet();
+    Card* removeCard();
     /**
 	 * Remove a set of cards
 	 */

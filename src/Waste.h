@@ -12,22 +12,40 @@
 
 //inherit from Pile
 class Waste : public Pile {
-	// by default private
-	// ------------ Variables ------------
-
+// by default private
+// ------------ Variables ------------
+    Stack stack = Stack(0);
 // constructors, queries and commands
 public:
 
-	// ------------ Constructor ------------
-	// inherit from Pile
+// ------------ Constructor ------------
     Waste(int x, int y); // Inherits from Pile
 
-	// ------------ Queries ------------
+// ------------ Queries ------------
+/**
+ * Check if the waste is empty.
+ * @return 'true' if the waste stack is empty, 'false' otherwise
+ */
+    bool isEmpty();
 
+// ------------ Commands ------------
+/**
+ * Add card to the stack object.
+ * @param card the card to be added
+ */
+    void addCard(Card* card);
 
-	// ------------ Commands ------------
+/**
+ * Removes top card from the stack object.
+ * @return the card that was removed
+ */
+    Card* removeCard();
 
-
+/**
+ * Remove all the cards from the waste stack, so it can be moved to the stock stack (used when there are no more cards available from the stock).
+ * @return the current stack object
+ */
+    Stack recycle();
 
 };
 

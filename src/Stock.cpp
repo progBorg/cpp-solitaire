@@ -1,19 +1,22 @@
 #include "Stock.h"
 
+/**
+ * The constructor for the Stock class.
+ */
 Stock::Stock(int x, int y) : Pile(x, y) {
-
+    this->stack = Stack(1);
 }
 
 /**
  * Removes to last card from the stock.
  */
-void Stock::removeCard() {
-	cards.pop_back();
+Card* Stock::removeCard() {
+    return this->stack.removeCard();
 }
 
 /**
- * Add a set of cards (only use to reset stock)
+ * Replace a set of cards (only used to reset stock)
  */
-void Stock::addSet() {
-
+void Stock::addSet(Stack stack) {
+    this->stack = stack;
 }
