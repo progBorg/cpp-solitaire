@@ -15,12 +15,12 @@ Tableau::Tableau(int x, int y) : Pile(x, y) {
  */
 bool Tableau::addSet(int column, std::vector<Card*> cards) {
     // top card of tableau is one value above bottom card of vector to be placed, and;
-    // both even or both odd
+    // both different color (black and red or red and black)
     // OR:
     // if no cards present in this row, only type KING is allowed to be placed here
     if ((stacks[column]->getTopType() == 0 && (*cards.begin())->getType() == Card::KING) ||
         (stacks[column]->getTopType() == 1 + (*cards.begin())->getType() &&
-         stacks[column]->getTopSuit() % 2 == (*cards.begin())->getSuit() % 2)) {
+         stacks[column]->getTopSuit() % 2 != (*cards.begin())->getSuit() % 2)) {
         stacks[column]->appendSet(cards);
         return true;
     }
