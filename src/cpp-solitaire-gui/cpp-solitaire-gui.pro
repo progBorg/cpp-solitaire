@@ -7,19 +7,23 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 HEADERS += \
 	../Card.h \
-	../klondike.h \
+	../Foundation.h \
+	../solitaire.h \
 	../Pile.h \
 	../Reserve.h \
 	../Stack.h \
 	../Stock.h \
-	../Waste.h
+	../Waste.h \
+    SolitaireGui.h
 
 
 SOURCES += \
 	../Card.cpp \
-	../main.cpp \
+	../Foundation.cpp \
 	../Pile.cpp \
 	../Reserve.cpp \
 	../Stack.cpp \
 	../Stock.cpp \
-	../Waste.cpp
+	../Waste.cpp \
+    SolitaireGui.cpp \
+    solitaire.cpp
