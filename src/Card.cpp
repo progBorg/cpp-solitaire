@@ -1,16 +1,16 @@
 #include <string>
 #include <cassert>
+#include <iostream>
+
 #include "Card.h"
 
 /**
  * The constructor for the Card class.
- * @param inputSuit desired Suit (suit) for this specific card
- * @param inputType desired type (value) for this specific card
+ * @param inputSuit desired Suit for this specific card
+ * @param inputType desired Type (value) for this specific card
  */
-Card::Card(std::string inputSuit, int inputType) {
-	std::string full = HEARTS+DIAMONDS+SPADES+CLUBS;
-	assert(full.find(inputSuit) != std::string::npos && inputType >= 0 && inputType <= 13); // checking input values
-	this->suit = std::move(inputSuit); // faster way of copying expensive parameters
+Card::Card(int inputSuit, int inputType) {
+	this->suit = inputSuit;
 	this->type = inputType;
 	this->isVisible = false;
 }
@@ -20,13 +20,13 @@ Card::Card(std::string inputSuit, int inputType) {
  * @return the current card object
  */
 int Card::getCard() {
-	return 101;
+	return suit*100+type; // concatenate suit and type together in one integer
 }
 
 /**
  * @return the Suit of the card
  */
-std::string Card::getSuit() {
+int Card::getSuit() {
 	return this->suit;
 }
 

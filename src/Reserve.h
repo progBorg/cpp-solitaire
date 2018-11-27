@@ -27,7 +27,7 @@ public: // constructor, queries and commands
 /**
  * Move a card from the stock pile to the waste pile, to make it visible to the player.
  */
-    void getCard();
+    int getCard();
 
 // ------------ Commands ------------
 /**

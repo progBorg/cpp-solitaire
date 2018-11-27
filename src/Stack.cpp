@@ -5,7 +5,7 @@
  */
 Stack::Stack(int numCards) {
     for (int index = 0; index < numCards; index++) {
-        Card card("Hearts", 5); // this will obviously have to be randomized
+        Card card(Card::HEARTS, Card::KING); // this will obviously have to be randomized
         Card* cardPtr = &card;
         addCard(cardPtr);
     }
@@ -18,7 +18,16 @@ Stack::Stack(int numCards) {
 bool Stack::isEmpty() {
     return this->cards.empty();
 }
+
+std::vector<Card*> Stack::getCards() {
+    return this->cards;
+}
+
 // ------------ Commands ------------
+void Stack::addSet(std::vector<Card*> cards) {
+    this->cards = cards;
+}
+
 /**
  * @param card the card that needs to be added to the stack
  */
@@ -42,4 +51,11 @@ Card* Stack::removeCard() {
  */
 void Stack::removeSet() {
     this->cards.clear();
+}
+
+/**
+ * Inverse the order of cards in the vector.
+ */
+void Stack::reverse() {
+    std::reverse(cards.begin(), cards.end());
 }
