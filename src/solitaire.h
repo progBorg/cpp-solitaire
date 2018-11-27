@@ -10,7 +10,7 @@
 #include "Card.h"
 #include "Pile.h"
 #include "Stack.h"
-//#include "Stock.h"
+//#include "Stock.h" // These are included in Reserve.h
 //#include "Waste.h"
 #include "Foundation.h"
 #include "Reserve.h"
