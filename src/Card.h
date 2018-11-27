@@ -4,11 +4,12 @@
  * \authors Tom Veldman
  * \details The following format is adhered:
  *
- * - String 'deck' is the suit of the card, namely:
- * "Hearts" (red)
- * "Diamonds" (red)
- * "Spades" (black)
- * "Clubs" (black)
+ * - Integer 'deck' is the suit of the card, namely:
+ * 1 Hearts (red)
+ * 2 Spades (black)
+ * 3 Diamonds (red)
+ * 4 Clubs (black)
+ * So odd numbers are red, even are black.
  *
  * - Integer 'type' is the value of the card:
  * 1 for Ace
@@ -20,35 +21,44 @@
 
 #ifndef C_SOLITAIRE_CARD_H
 #define C_SOLITAIRE_CARD_H
+#include <iostream>
 
 class Card {
 	// by default private
 	// ------------ Variables ------------
-	///Why are these variables not working?
-	const int ACE = 1;
-	const int JACK = 11;
-	const int QUEEN = 12;
-	const int KING = 13;
-	const std::string HEARTS = "Hearts";
-	const std::string DIAMONDS = "Diamonds";
-	const std::string SPADES = "Spades";
-	const std::string CLUBS = "Clubs";
-
-	std::string suit; // suit
+	int suit; // suit
 	int type; // value
 	bool isVisible;
 
+public:
+    // types (value):
+    const static int ACE = 1;
+    const static int TWO = 2;
+    const static int THREE = 3;
+    const static int FOUR = 4;
+    const static int FIVE = 5;
+    const static int SIX = 6;
+    const static int SEVEN = 7;
+    const static int EIGHT = 8;
+    const static int NINE = 9;
+    const static int TEN = 10;
+    const static int JACK = 11;
+    const static int QUEEN = 12;
+    const static int KING = 13;
+    // suits:
+    const static int HEARTS = 1;
+    const static int SPADES = 2;
+    const static int DIAMONDS = 3;
+    const static int CLUBS = 4;
 
 // constructors, queries and commands
-public:
-
 	// ------------ Constructor ------------
 	/**
 	 * The constructor for the Card class.
-	 * @param inputDeck desired deck (suit) for this specific card
+	 * @param inputSuit desired suit for this specific card
 	 * @param inputType desired type (value) for this specific card
 	 */
-	Card(std::string inputDeck, int inputType);
+	Card(int inputSuit, int inputType);
 
 	// ------------ Queries ------------
 	/**
@@ -58,7 +68,7 @@ public:
 	/**
 	 * @return the suit of the card
 	 */
-	std::string getSuit();
+	int getSuit();
 	/**
 	 * @return the type of the card
 	 */

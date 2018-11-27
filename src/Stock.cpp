@@ -4,7 +4,7 @@
  * The constructor for the Stock class.
  */
 Stock::Stock(int x, int y) : Pile(x, y) {
-    this->stack = Stack(1);
+//    this->stack = Stack(1);
 }
 
 /**
@@ -15,8 +15,15 @@ Card* Stock::removeCard() {
 }
 
 /**
- * Replace a set of cards (only used to reset stock)
+ * Replace the set of cards (only used to reset stock)
  */
-void Stock::addSet(Stack stack) {
-    this->stack = stack;
+void Stock::addSet(std::vector<Card*> cards) {
+    this->stack.addSet(cards);
+}
+
+/**
+ * Reverse the order of the stack to ensure 'oldest' cards are back on top to be taken first.
+ */
+void Stock::reverse() {
+    this->stack.reverse();
 }
