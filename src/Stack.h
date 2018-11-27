@@ -32,7 +32,14 @@ public:
     bool isEmpty();
 
     std::vector<Card*> getCards();
+
+    int getTopType();
+
+    int getTopSuit();
+
     // ------------ Commands ------------
+    void appendSet(std::vector<Card*> cards);
+
     void addSet (std::vector<Card*> cards);
 
     /**
@@ -55,6 +62,7 @@ public:
      */
     void reverse();
 
+    std::vector<Card*> removeStartingFrom(int index);
 };
 
 #endif //C_SOLITAIRE_STACK_H

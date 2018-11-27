@@ -14,10 +14,10 @@
 class Tableau : public Pile {
     // by default private
     // ------------ Variables ------------
+    std::vector<Stack*> stacks; // vector consists of 7 stacks
 
 // constructors, queries and commands
 public:
-
     // ------------ Constructor ------------
     Tableau(int x, int y); // Inherits from pile
 
@@ -25,28 +25,16 @@ public:
 
 
     // ------------ Commands ------------
-
-    /**
-     * Adds card to the tableau
-     */
-    void addCard();
-
-    /**
-     * Removes to last card from the tableau.
-     */
-    void removeCard();
-
     /**
      * Add a set of cards (only use to reset tableau).
      */
-    void addSet();
+    bool addSet(int column, std::vector<Card*> cards);
 
     /**
      * Remove set of cards from tableau.
      */
-    void removeSet();
+    std::vector<Card*> removeSet(int column, int index);
 
 };
-
 
 #endif //CPP_SOLITAIRE_TABLEAU_H

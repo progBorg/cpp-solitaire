@@ -12,7 +12,7 @@ Reserve::Reserve() {
 */
 int Reserve::getCard() {
     Card* tempCard = this->stock.removeCard();
-    if (tempCard != nullptr) { // if the removeCard() was completed successfully
+    if (tempCard != nullptr) { // if the card was successfully removed
         this->waste.addCard(tempCard); // add the top card to the waste
         return 0;
     } else {
