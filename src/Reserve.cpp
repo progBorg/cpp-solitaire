@@ -30,6 +30,19 @@ int Reserve::getCard() {
 }
 
 /**
+ * Removes the top card from the waste pile, and returns a pointer to the respective card object.
+ * @return pointer to the card object of the top card on the waste pile
+ */
+Card* Reserve::takeCard() {
+    Card* lastCard = this->waste.removeCard();
+    if (lastCard != nullptr) {
+        return lastCard;
+    } else {
+        return nullptr; // error: no card in waste to be taken
+    }
+}
+
+/**
  * Get the stock pile
  */
 Stock Reserve::getStock() {
@@ -41,17 +54,4 @@ Stock Reserve::getStock() {
  */
 Waste Reserve::getWaste() {
 	return this->waste;
-}
-
-/**
- * Removes the top card from the waste pile, and returns a pointer to the respective card object.
- * @return pointer to the card object of the top card on the waste pile
- */
-Card* Reserve::takeCard() {
-    Card* lastCard = this->waste.removeCard();
-    if (lastCard != nullptr) {
-        return lastCard;
-    } else {
-        return nullptr; // error: no card in waste to be taken
-    }
 }

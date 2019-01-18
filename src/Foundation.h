@@ -13,7 +13,6 @@
 class Foundation : public Pile {
 // by default private
 // ------------ Variables ------------
-    std::vector<Stack*> stacks; // vector consists of 4 stacks, each with their (suit integer - 1) as the index
 
 public: // constructor, queries and commands
 
@@ -31,7 +30,7 @@ public: // constructor, queries and commands
 	 * @param suit the column (ie suit) the card needs to be added to
 	 * @return 'true' if it succeeded, 'false' if the card is unable to be placed there
 	 */
-	bool addCard(Card* card, int suit);
+	bool addCard(Card* card);
 
 	/**
 	 * removes top card from the foundation
@@ -39,6 +38,11 @@ public: // constructor, queries and commands
 	 * @return the removed card, so it can be placed somewhere else
 	 */
 	Card* removeCard(int suit);
+
+	/**
+	 * Returns true when all top cards are kings, false otherwise
+	 */
+	bool isGameOver();
 
 };
 

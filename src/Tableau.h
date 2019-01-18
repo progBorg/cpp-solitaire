@@ -30,6 +30,10 @@ public:
      * Add a set of cards (only use to reset tableau).
      */
     bool addSet(int column, std::vector<Card*> cards);
+    /**
+     * Add a single card
+     */
+    bool addCard(int column, Card* card);
 
     /**
      * Remove set of cards from tableau.

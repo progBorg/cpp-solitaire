@@ -33,10 +33,13 @@ class Solitaire {
 	void printBoard();
 
 	/**
-	 * Prompt the user with the provided options.
-	 * Returns the index of the chosen option.
+	 * Game move methods
 	 */
-	int getUserInput(std::vector<std::string> options);
+	void cardFromStock();
+	void wasteToTableau();
+	void wasteToFoundation();
+	void tableauToFoundation();
+	void tableauMove();
 
 public: // constructor, queries and commands
 
@@ -55,6 +58,12 @@ public: // constructor, queries and commands
      * Returns a vector of cards, shuffled randomly
      */
 	static std::vector<Card*> generateCards();
+
+	/**
+	 * Prompt the user with the provided options.
+	 * Returns the index of the chosen option.
+	 */
+	int getUserInput(std::vector<std::string> options);
 };
 
 #endif

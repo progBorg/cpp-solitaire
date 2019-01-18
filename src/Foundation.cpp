@@ -24,13 +24,30 @@ Card* Foundation::removeCard(int suit) {
  * @param suit the column (ie suit) the card needs to be added to
  * @return 'true' if it succeeded, 'false' if the card is unable to be placed there
  */
-bool Foundation::addCard(Card* card, int suit) {
+bool Foundation::addCard(Card* card) {
     // card type needs to be the same of the stack it is being placed on, and;
     // the card Type needs to be one above the value of the card currently on top
-    if (card->getSuit() == suit && card->getType() == 1+stacks[suit-1]->getTopType()) {
-        stacks[suit-1]->addCard(card); // perform that addition
+    int suit = card->getSuit();
+    if (card->getSuit() == suit && card->getType() == 1+ this->getStack(suit-1)->getTopType()) {
+        getStack(suit-1)->addCard(card); // perform that addition
         return true; // success
     } else {
         return false; // failed
     }
+}
+
+/**
+ * Returns true when all top cards are kings, false otherwise
+ */
+bool Foundation::isGameOver() {
+	// Loop through each stack
+	for (int i = 0; i < 4; i++) {
+		// If at any point a non-king was found, return false
+		if (this->getStack(i)->getTopType() != Card::KING) {
+			return false;
+		}
+	}
+
+	// If all four stacks have a king on top, return true
+	return true;
 }

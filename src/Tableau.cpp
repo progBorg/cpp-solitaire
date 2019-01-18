@@ -41,6 +41,22 @@ bool Tableau::addSet(int column, std::vector<Card*> cards) {
     return false;
 }
 
+bool Tableau::addCard(int column, Card* card) {
+	// top card of tableau is one value above bottom card of vector to be placed, and;
+    // both different color (black and red or red and black)
+    // OR:
+    // if no cards present in this row, only type KING is allowed to be placed here
+    if ((this->getStack(column)->getTopType() == 0 && card->getType() == Card::KING) ||
+            (this->getStack(column)->getTopType() == 1 + card->getType() &&
+            this->getStack(column)->getTopSuit() % 2 != card->getSuit() % 2))
+    {
+        this->getStack(column)->addCard(card);
+        return true;
+    }
+
+    return false;
+}
+
 /**
  * Remove set of cards from tableau.
  */
