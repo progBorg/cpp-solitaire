@@ -28,7 +28,16 @@ class Solitaire {
     Tableau tableau;
     Reserve reserve;
 
+	/**
+	 * Print the playing board
+	 */
 	void printBoard();
+
+	/**
+	 * Prompt the user with the provided options.
+	 * Returns the index of the chosen option.
+	 */
+	int getUserInput(vector<string> options);
 
 public: // constructor, queries and commands
 

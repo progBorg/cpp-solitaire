@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <random>
+#include <string>
 #include "Solitaire.h"
 using namespace std;
 
@@ -49,5 +50,47 @@ vector<Card*> Solitaire::generateCards() {
 void Solitaire::run() {
 	cout << "Welcome to Solitaire!" << endl;
 
+	vector<string> moveOptions {
+		"Get new card from Stock",
+		"Move card from Waste to Tableau",
+		"Move card from Waste to Foundation",
+		"Move card from Tableau to Foundation",
+		"Move card within Tableau"
+	};
+
+	bool winnerWinnerChickenDinner = false;
+	while (!winnerWinnerChickenDinner) {
+		printBoard();
+
+		int choice = getUserInput(moveOptions);
+		cout << "Your choice: " << choice << endl;
+	}
+
 	return;
+}
+
+/**
+ * Prints the board to screen
+ */
+void Solitaire::printBoard() {
+	Waste wasteStack = this->reserve.getWaste();
+	Stock stockStack = this->reserve.getStock();
+
+	// Print top row, the reserve and foundations
+	//fprintf();
+
+	// Print tableau
+
+}
+
+/**
+ * Prints options to screen, let's user choose, and returns the index of the chosen option.
+ */
+int Solitaire::getUserInput(vector<string> options) {
+	// Print options
+	for (int i = 0; i < options.size(); i++) {
+		cout << i+1 << ") " << options[i] << endl;
+	}
+
+	return 0;
 }
