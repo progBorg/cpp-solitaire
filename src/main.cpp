@@ -50,15 +50,16 @@ int main() {
 		Solitaire solitaireGame(tableauCards, reserveCards);
 		solitaireGame.run();
 
+		//TODO save highscore
+
 		// Ask user for another game
 		// Get user input
 		std::cout << "Would you like to play a new round?" << std::endl;
 		switch (solitaireGame.getUserInput(gameplayOptions)) {
-			case 1:
+			case 0:
 				replayGame = true;
 				break;
-			case 0:
-			case 2:
+			case 1:
 				replayGame = false;
 				break;
 		}

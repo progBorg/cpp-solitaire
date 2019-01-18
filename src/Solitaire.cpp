@@ -103,10 +103,50 @@ void Solitaire::printBoard() {
 	Waste wasteStack = this->reserve.getWaste();
 	Stock stockStack = this->reserve.getStock();
 
-	// Print top row, the reserve and foundations
-	//fprintf();
+	// ------------ Stock ------------
+	std::cout << "Number of cards available in the stock: "
+		<< stockStack.getPile().getStack(0)->getCards().size() << std::endl;
 
-	// Print tableau
+	// ------------ Waste ------------
+	std::vector<Card*> uselessCards = generateCards();
+	wasteStack.addCard(uselessCards[0]); // add a random card, to test functionality
+	std::cout << "\nThe waste:" << std::endl;
+	std::vector<Card *> wasteCards = wasteStack.getStack(0)->getCards();
+	if (wasteCards.empty()) {
+		std::cout << "The waste is empty." << std::endl;
+	} else {
+		for (int index = 0; index < wasteCards.size(); index++) {
+			std::cout << wasteCards[index]->getCard() << std::endl;
+		}
+	}
+
+	// ------------ Foundation ------------
+	std::cout << "\nThe foundation:" << std::endl;
+
+	// save all the cards in a matrix
+	auto matrix = new std::vector<Card *>;
+	for (int column = 0; column < 4; column++) {
+		matrix[column] = this->foundation.getStack(column)->getCards();
+	}
+
+	// print every element of the matrix
+	for (int index = 0; index < 13; index++) {
+		for (int column = 0; column < 4; column++) {
+//				std::cout << matrix[index][column]->getCard();
+
+			// preventing nullpointer issues:
+			Card * value = matrix[index][column];
+			int result;
+			(value == nullptr) ? (result = 0) : (result = value->getCard());
+			std::cout << result;
+		}
+		std::cout << std::endl;
+	}
+
+	// ------------ Tableau ------------
+	std::cout << "\nThe tableau:" << std::endl;
+	std::cout << this->tableau.getStack(0)->getCards().size() << std::endl;
+	std::cout << this->tableau.getStack(1)->getCards().size() << std::endl;
 
 }
 
@@ -114,12 +154,24 @@ void Solitaire::printBoard() {
  * Prints options to screen, let's user choose, and returns the index of the chosen option.
  */
 int Solitaire::getUserInput(std::vector<std::string> options) {
+	std::cout << "Please select one of the options below:" << std::endl;
 	// Print options
 	for (int i = 0; i < options.size(); i++) {
 		std::cout << i+1 << ") " << options[i] << std::endl;
 	}
 
-	return 0;
+	int choice;
+	bool correctInput = false;
+	while (!correctInput) {
+		std::cin >> choice; // user choice
+		if (1 <= choice && choice <= options.size()) {
+			correctInput = true; // check if input is in selectable range
+		} else {
+			std::cout << "That is not a valid choice. Please try again." << std::endl;
+		}
+	}
+
+	return choice - 1;
 }
 
 /**
@@ -132,7 +184,7 @@ void Solitaire::cardFromStock() {
 			break;
 		case -1:
 			// Waste and stock are both empty
-			std::cout << "Can't get a new card, waste and stock are empty" << std::endl;
+			std::cout << "Can't get a new card, waste and stock are empty." << std::endl;
 			break;
 	}
 	return;
@@ -150,7 +202,7 @@ void Solitaire::wasteToTableau() {
 
 	// Get user input
 	std::cout << "What column to move the card to?" << std::endl;
-	int tableauColumn = getUserInput(tableauColumnOptions) - 1;
+	int tableauColumn = getUserInput(tableauColumnOptions);
 
 	// Get card from waste
 	Card* tempCard = reserve.takeCard();
@@ -161,7 +213,7 @@ void Solitaire::wasteToTableau() {
 
 	// If move failed
 	if (! tableau.addCard(tableauColumn, tempCard)) {
-		std::cout << "Move not possible" << std::endl;
+		std::cout << "Move not possible." << std::endl;
 	}
 }
 
@@ -169,13 +221,13 @@ void Solitaire::wasteToFoundation() {
 	// Get card from waste
 	Card* tempCard = reserve.takeCard();
 	if (tempCard == nullptr) {
-		std::cout << "Waste is empty" << std::endl;
+		std::cout << "Waste is empty." << std::endl;
 		return;
 	}
 
 	// If move failed
 	if (! foundation.addCard(tempCard)) {
-		std::cout << "Move not possible" << std::endl;
+		std::cout << "Move not possible." << std::endl;
 	}
 
 	return;
@@ -194,7 +246,7 @@ void Solitaire::tableauToFoundation() {
 
 	// Get user input
 	std::cout << "What column top-card to move to the foundations?" << std::endl;
-	int tableauColumn = getUserInput(tableauColumnOptions) - 1;
+	int tableauColumn = getUserInput(tableauColumnOptions);
 
 	// Back up tableau stack
 	std::vector<Card*> backupStack = this->tableau.getStack(tableauColumn)->getCards();
@@ -209,7 +261,7 @@ void Solitaire::tableauToFoundation() {
 	// Move tempCard onto foundation
 	// If move failed
 	if (! foundation.addCard(tempCard)) {
-		std::cout << "Move not possible" << std::endl;
+		std::cout << "Move not possible." << std::endl;
 		// Put card back
 		this->tableau.addSet(tableauColumn, backupStack);
 	}

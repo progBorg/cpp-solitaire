@@ -16,10 +16,10 @@ Card::Card(int inputSuit, int inputType) {
 
 // ------------ Queries ------------
 /**
- * @return the current card object
+ * @return the current card representation
  */
 int Card::getCard() {
-	return suit*100+type; // concatenate suit and type together in one integer
+	return (suit * 100) + type; // concatenate suit and type together in one integer
 }
 
 /**
