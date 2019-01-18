@@ -1,14 +1,13 @@
 #include "Tableau.h"
-using namespace std;
 
 /**
  * The constructor for the Tableau class.
  */
-Tableau::Tableau(vector<Card*> tableauCards, int numStacks) : Pile(numStacks) {
+Tableau::Tableau(std::vector<Card*> tableauCards, int numStacks) : Pile(numStacks) {
 	// Divide cards over the stacks triangularly
 	for (int i = 0; i < numStacks; i++) {
 		// Fill temporary vector with cards
-		vector<Card*> cardSet;
+		std::vector<Card*> cardSet;
 		cardSet.reserve(i + 1); // Reserve space in advance
 		for (int j = 0; j < (i + 1); j++) {
 			cardSet.push_back(tableauCards[i+j]);
@@ -18,7 +17,7 @@ Tableau::Tableau(vector<Card*> tableauCards, int numStacks) : Pile(numStacks) {
 	}
 }
 
-Tableau::Tableau(vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7) {}
+Tableau::Tableau(std::vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7) {}
 
 /**
  * Add a set of cards to the tableau (this set can also be coming from the tableau).
@@ -26,14 +25,15 @@ Tableau::Tableau(vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7)
  * @param cards the set of cards that need to be added
  * @return 'true' if the move was carried out, 'false' if the move is not allowed
  */
-bool Tableau::addSet(int column, vector<Card*> cards) {
+bool Tableau::addSet(int column, std::vector<Card*> cards) {
     // top card of tableau is one value above bottom card of vector to be placed, and;
     // both different color (black and red or red and black)
     // OR:
     // if no cards present in this row, only type KING is allowed to be placed here
     if ((stacks[column]->getTopType() == 0 && (*cards.begin())->getType() == Card::KING) ||
-        (stacks[column]->getTopType() == 1 + (*cards.begin())->getType() &&
-         stacks[column]->getTopSuit() % 2 != (*cards.begin())->getSuit() % 2)) {
+            (stacks[column]->getTopType() == 1 + (*cards.begin())->getType() &&
+            stacks[column]->getTopSuit() % 2 != (*cards.begin())->getSuit() % 2))
+    {
         stacks[column]->appendSet(cards);
         return true;
     }
@@ -44,6 +44,6 @@ bool Tableau::addSet(int column, vector<Card*> cards) {
 /**
  * Remove set of cards from tableau.
  */
-vector<Card*> Tableau::removeSet(int column, int index) {
+std::vector<Card*> Tableau::removeSet(int column, int index) {
     return stacks[column]->removeStartingFrom(index);
 }

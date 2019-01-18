@@ -1,12 +1,11 @@
 #include "Reserve.h"
 #include "Stock.h"
 #include "Waste.h"
-using namespace std;
 
 /**
  * Construct Reserve, initializing stock and waste to empty stacks
  */
-Reserve::Reserve(vector<Card*> wasteCards) : stock(), waste() {
+Reserve::Reserve(std::vector<Card*> wasteCards) : stock(), waste() {
 	this->stock.getStack(0)->addSet(wasteCards); // Add the cards to the waste pile
 }
 

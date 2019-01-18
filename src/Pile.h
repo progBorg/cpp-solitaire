@@ -9,13 +9,12 @@
 #define C_SOLITAIRE_PILE_H
 
 #include "Stack.h"
-using namespace std;
 
 class Pile {
 	// by default private
 protected:
 	// ------------ Variables ------------
-    vector<Stack*> stacks; // vector containing all the stacks in the current Pile object
+    std::vector<Stack*> stacks; // vector containing all the stacks in the current Pile object
 
 // constructors, queries and commands
 public:

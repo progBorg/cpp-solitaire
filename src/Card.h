@@ -23,8 +23,6 @@
 #ifndef C_SOLITAIRE_CARD_H
 #define C_SOLITAIRE_CARD_H
 
-using namespace std;
-
 class Card {
 	// by default private
 	// ------------ Variables ------------

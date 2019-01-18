@@ -10,12 +10,11 @@
 
 #include <vector>
 #include "Card.h"
-using namespace std;
 
 class Stack {
 
     // ------------ Variables ------------
-    vector<Card*> cards; // vector containing all the cards in the current Stack object
+    std::vector<Card*> cards; // vector containing all the cards in the current Stack object
 
 // constructor, queries and commands
 public:
@@ -32,16 +31,16 @@ public:
      */
     bool isEmpty();
 
-    vector<Card*> getCards();
+    std::vector<Card*> getCards();
 
     int getTopType();
 
     int getTopSuit();
 
     // ------------ Commands ------------
-    void appendSet(vector<Card*> cards);
+    void appendSet(std::vector<Card*> cards);
 
-    void addSet (vector<Card*> cards);
+    void addSet (std::vector<Card*> cards);
 
     /**
      * @param card the card that needs to be added to the stack
@@ -63,7 +62,7 @@ public:
      */
     void reverse();
 
-    vector<Card*> removeStartingFrom(int index);
+    std::vector<Card*> removeStartingFrom(int index);
 };
 
 #endif //C_SOLITAIRE_STACK_H

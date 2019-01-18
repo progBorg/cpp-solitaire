@@ -17,7 +17,6 @@
 #include "Tableau.h"
 #include "Reserve.h"
 #include "Highscore.h"
-using namespace std;
 
 
 class Solitaire {
@@ -37,12 +36,12 @@ class Solitaire {
 	 * Prompt the user with the provided options.
 	 * Returns the index of the chosen option.
 	 */
-	int getUserInput(vector<string> options);
+	int getUserInput(std::vector<std::string> options);
 
 public: // constructor, queries and commands
 
 // ------------ Constructor ------------
-    Solitaire(vector<Card*> tableauCards, vector<Card*> reserveCards);
+    Solitaire(std::vector<Card*> tableauCards, std::vector<Card*> reserveCards);
 
 
 // ------------ Commands ------------
@@ -55,7 +54,7 @@ public: // constructor, queries and commands
      * Generate all 52 game cards for future use
      * Returns a vector of cards, shuffled randomly
      */
-	static vector<Card*> generateCards();
+	static std::vector<Card*> generateCards();
 };
 
 #endif

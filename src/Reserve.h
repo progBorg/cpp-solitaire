@@ -11,7 +11,6 @@
 #include "Card.h"
 #include "Stock.h"
 #include "Waste.h"
-using namespace std;
 
 class Reserve {
 // by default private
@@ -21,7 +20,7 @@ class Reserve {
 
 public: // constructor, queries and commands
 // ------------ Constructor ------------
-    Reserve(vector<Card*> wasteCards);
+    Reserve(std::vector<Card*> wasteCards);
 
 // ------------ Queries ------------
 	/**

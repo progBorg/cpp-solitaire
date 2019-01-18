@@ -29,13 +29,13 @@ int old_main() {
 
 int main() {
 	// Generate cards
-	vector<Card*> gameCards;
+	std::vector<Card*> gameCards;
 	gameCards = Solitaire::generateCards();
-	cout << "Number of generated cards: " << gameCards.size() << endl;
+	std::cout << "Number of generated cards: " << gameCards.size() << std::endl;
 
 	// Divide cards
-	vector<Card*> tableauCards(gameCards.begin(), gameCards.begin() + 28);
-	vector<Card*> reserveCards(gameCards.begin() + 28, gameCards.end());
+	std::vector<Card*> tableauCards(gameCards.begin(), gameCards.begin() + 28);
+	std::vector<Card*> reserveCards(gameCards.begin() + 28, gameCards.end());
 
 	// Initiate and run game
 	Solitaire solitaireGame(tableauCards, reserveCards);

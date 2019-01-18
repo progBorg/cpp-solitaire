@@ -9,12 +9,11 @@
 #define CPP_SOLITAIRE_FOUNDATION_H
 
 #include "Pile.h"
-using namespace std;
 
 class Foundation : public Pile {
 // by default private
 // ------------ Variables ------------
-    vector<Stack*> stacks; // vector consists of 4 stacks, each with their (suit integer - 1) as the index
+    std::vector<Stack*> stacks; // vector consists of 4 stacks, each with their (suit integer - 1) as the index
 
 public: // constructor, queries and commands
 

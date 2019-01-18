@@ -1,5 +1,4 @@
 #include "Stock.h"
-using namespace std;
 
 /**
  * The constructor for the Stock class.
@@ -20,7 +19,7 @@ Card* Stock::removeCard() {
 /**
  * Replace the set of cards (only used to reset stock)
  */
-void Stock::addSet(vector<Card*> cards) {
+void Stock::addSet(std::vector<Card*> cards) {
     this->getStack(0)->addSet(cards);
 }
 

@@ -10,7 +10,6 @@
 #define C_SOLITAIRE_STOCK_H
 
 #include "Pile.h"
-using namespace std;
 
 //inherit from Pile
 class Stock : public Pile {
@@ -35,7 +34,7 @@ public:
     /**
      * Add a set of cards (only used to reset stock)
      */
-    void addSet(vector<Card*>);
+    void addSet(std::vector<Card*>);
 
     /**
     * Reverse the order of the stack to ensure 'oldest' cards are back on top to be taken first.

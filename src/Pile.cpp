@@ -1,5 +1,4 @@
 #include "Pile.h"
-using namespace std;
 
 /**
  * The constructor for the Pile class.

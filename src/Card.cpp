@@ -2,7 +2,6 @@
 #include <string>
 #include <cassert>
 #include "Card.h"
-using namespace std;
 
 /**
  * The constructor for the Card class.

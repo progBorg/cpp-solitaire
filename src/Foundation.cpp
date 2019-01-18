@@ -1,5 +1,4 @@
 #include "Foundation.h"
-using namespace std;
 
 /**
  * The constructor for the Foundation class.
