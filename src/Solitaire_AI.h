@@ -1,6 +1,9 @@
-//
-// Created by bassp on 18-12-2018.
-//
+/**
+ * \brief Solitaire AI, to help the player choose a move
+ * \authors Dries Cavelaars
+ * \authors Tom Veldman
+ * \authors Bas Spijkerman
+ */
 
 #ifndef SRC_SOLITAIRE_AI_H
 #define SRC_SOLITAIRE_AI_H

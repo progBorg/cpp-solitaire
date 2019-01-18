@@ -1,11 +1,14 @@
 #include "Foundation.h"
+using namespace std;
 
 /**
  * The constructor for the Foundation class.
  */
-Foundation::Foundation(int x, int y) : Pile(x, y) {
+Foundation::Foundation(int numStacks) : Pile(numStacks) {
 
 }
+
+Foundation::Foundation() : Foundation::Foundation(4) {}
 
 /**
  * removes top card from the foundation

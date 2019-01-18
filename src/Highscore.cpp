@@ -1,7 +1,4 @@
 #include "Highscore.h"
-#include <fstream>
-#include <iostream>
-#include <vector>
 
 /**
  * The constructor for the Highscore class.

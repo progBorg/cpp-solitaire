@@ -1,16 +1,13 @@
 #include <utility>
-
+#include <algorithm>
 #include "Stack.h"
+using namespace std;
 
 /**
  * The constructor for the Stack class.
  */
-Stack::Stack(int numCards) {
-    for (int index = 0; index < numCards; index++) {
-        Card card(Card::HEARTS, Card::KING); // TODO this will obviously have to be randomized
-        Card* cardPtr = &card;
-        addCard(cardPtr);
-    }
+Stack::Stack() {
+    
 }
 
 // ------------ Queries ------------
@@ -21,7 +18,7 @@ bool Stack::isEmpty() {
     return this->cards.empty();
 }
 
-std::vector<Card*> Stack::getCards() {
+vector<Card*> Stack::getCards() {
     return this->cards;
 }
 
@@ -35,7 +32,7 @@ int Stack::getTopSuit() {
 
 // ------------ Commands ------------
 
-void Stack::appendSet(std::vector<Card*> cards) {
+void Stack::appendSet(vector<Card*> cards) {
     this->cards.insert(this->cards.end(), cards.begin(), cards.end());
 }
 
@@ -43,8 +40,8 @@ void Stack::appendSet(std::vector<Card*> cards) {
  * Replaces the current cards vector (stack) by the input stack.
  * @param cards the vector of cards that replaces the current stack
  */
-void Stack::addSet(std::vector<Card*> cards) {
-    this->cards = std::move(cards);
+void Stack::addSet(vector<Card*> cards) {
+    this->cards = move(cards);
 }
 
 /**
@@ -79,10 +76,10 @@ void Stack::reverse() {
     std::reverse(cards.begin(), cards.end());
 }
 
-std::vector<Card*> Stack::removeStartingFrom(int index) {
-    std::vector<Card*>::const_iterator first = cards.begin() + index;
-    std::vector<Card*>::const_iterator last = cards.end();
-    std::vector<Card*> lastCards(first, last);
+vector<Card*> Stack::removeStartingFrom(int index) {
+    vector<Card*>::const_iterator first = cards.begin() + index;
+    vector<Card*>::const_iterator last = cards.end();
+    vector<Card*> lastCards(first, last);
     cards.resize(index-1);
     return lastCards;
 }

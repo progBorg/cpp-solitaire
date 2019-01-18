@@ -2,6 +2,7 @@
  * \brief Card class used by the Stack class
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
  * \details The following format is adhered:
  *
  * - Integer 'deck' is the suit of the card, namely:
@@ -21,7 +22,8 @@
 
 #ifndef C_SOLITAIRE_CARD_H
 #define C_SOLITAIRE_CARD_H
-#include <iostream>
+
+using namespace std;
 
 class Card {
 	// by default private
@@ -45,6 +47,7 @@ public:
     const static int JACK = 11;
     const static int QUEEN = 12;
     const static int KING = 13;
+
     // suits:
     const static int HEARTS = 1;
     const static int SPADES = 2;

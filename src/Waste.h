@@ -3,6 +3,7 @@
  * \details Part of the Reserve class, together with the Stock class
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef C_SOLITAIRE_WASTE_H
@@ -14,12 +15,13 @@
 class Waste : public Pile {
 // by default private
 // ------------ Variables ------------
-    Stack stack = Stack(0);
+
 // constructors, queries and commands
 public:
 
 // ------------ Constructor ------------
-    Waste(int x, int y); // Inherits from Pile
+    Waste(int numStacks); // Inherits from Pile
+    Waste();
 
 // ------------ Queries ------------
 /**

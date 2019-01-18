@@ -2,17 +2,20 @@
  * \brief Pile class as parent of the Stock, Waste, Foundation and Tableau
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef C_SOLITAIRE_PILE_H
 #define C_SOLITAIRE_PILE_H
 
 #include "Stack.h"
+using namespace std;
 
 class Pile {
 	// by default private
+protected:
 	// ------------ Variables ------------
-    std::vector<Stack> stacks; // vector containing all the stacks in the current Pile object
+    vector<Stack*> stacks; // vector containing all the stacks in the current Pile object
 
 // constructors, queries and commands
 public:
@@ -23,7 +26,7 @@ public:
 	 * @param numStacks the amount of stacks in one Pile object
 	 * @param numCards the amount of cards per stack
 	 */
-    Pile(int numStacks, int numCards);
+    Pile(int numStacks);
 
 	// ------------ Queries ------------
 	/**
@@ -34,7 +37,7 @@ public:
 	 * @param index which stack number needs to be returned
 	 * @return the Stack object associated with this Pile
 	 */
-    Stack getStack(int index);
+    Stack* getStack(int index);
 
 	// ------------ Commands ------------
 

@@ -3,23 +3,25 @@
  * \details Part of the Reserve class, together with the Waste class
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef CPP_SOLITAIRE_TABLEAU_H
 #define CPP_SOLITAIRE_TABLEAU_H
 
 #include "Pile.h"
+using namespace std;
 
 //inherit from Pile
 class Tableau : public Pile {
     // by default private
     // ------------ Variables ------------
-    std::vector<Stack*> stacks; // vector consists of 7 stacks
 
 // constructors, queries and commands
 public:
     // ------------ Constructor ------------
-    Tableau(int x, int y); // Inherits from pile
+    Tableau(vector<Card*> tableauCards, int numStacks); // Inherits from pile
+    Tableau(vector<Card*> tableauCards);
 
     // ------------ Queries ------------
 
@@ -28,12 +30,12 @@ public:
     /**
      * Add a set of cards (only use to reset tableau).
      */
-    bool addSet(int column, std::vector<Card*> cards);
+    bool addSet(int column, vector<Card*> cards);
 
     /**
      * Remove set of cards from tableau.
      */
-    std::vector<Card*> removeSet(int column, int index);
+    vector<Card*> removeSet(int column, int index);
 
 };
 

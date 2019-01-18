@@ -1,8 +1,8 @@
+#include <iostream>
 #include <string>
 #include <cassert>
-#include <iostream>
-
 #include "Card.h"
+using namespace std;
 
 /**
  * The constructor for the Card class.

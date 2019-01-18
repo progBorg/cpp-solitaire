@@ -1,8 +1,9 @@
 #include "Waste.h"
 
-Waste::Waste(int x, int y) : Pile(x, y) {
-    this->stack = Stack(1);
+Waste::Waste(int numStacks) : Pile(numStacks) {
+
 }
+Waste::Waste() : Waste::Waste(1) {}
 
 // ------------ Queries ------------
 /**
@@ -10,7 +11,7 @@ Waste::Waste(int x, int y) : Pile(x, y) {
  * @return 'true' if the waste stack is empty, 'false' otherwise
  */
 bool Waste::isEmpty() {
-    return this->stack.isEmpty();
+    return this->getStack(0)->isEmpty();
 }
 
 // ------------ Commands ------------
@@ -19,7 +20,7 @@ bool Waste::isEmpty() {
  * @param card the card to be added
  */
 void Waste::addCard(Card* card) {
-    this->stack.addCard(card);
+    this->getStack(0)->addCard(card);
 }
 
 /**
@@ -27,7 +28,7 @@ void Waste::addCard(Card* card) {
  * @return the card that was removed
  */
 Card* Waste::removeCard() {
-    return this->stack.removeCard();
+    return this->getStack(0)->removeCard();
 }
 
 /**
@@ -35,8 +36,8 @@ Card* Waste::removeCard() {
  * @return the current stack object
  */
 Stack Waste::recycle() {
-    Stack currentStack = this->stack;
-    this->stack.removeSet();
-    return currentStack;
+    Stack* currentStack = this->getStack(0);
+    this->getStack(0)->removeSet();
+    return *currentStack;
 }
 

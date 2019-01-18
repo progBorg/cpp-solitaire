@@ -1,9 +1,20 @@
-//
-// Created by Bassie on 18-12-2018.
-//
-
+/**
+ * \authors Dries Cavelaars
+ * \authors Tom Veldman
+ * \authors Bas Spijkerman
+ */
+#include <iostream>
 #include "Solitaire_AI.h"
+using namespace std;
+
+Solitaire_AI::Solitaire_AI() {
+	
+}
 
 int Solitaire_AI::determineMove(Waste waste, Stock stock, Tableau tableau, Foundation foundation) {
-    //Ga hier bezig met de AI, Bas
+	// Not yet implemented
+	cout << "Sorry, AI has not been implemented yet" << endl;
+    return 0;
+
+    // Put AI implementation here
 }

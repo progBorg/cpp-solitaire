@@ -1,9 +1,7 @@
 #include <iostream>
+#include "Solitaire.h"
 
-#include "klondike.h"
-#include "Highscore.h"
-
-int main() {
+int old_main() {
 //    // testCard:
 //    Card fred(Card::HEARTS, Card::KING);
 //    std::cout << "Hi, here is an overview of your cards:" << std::endl;
@@ -26,13 +24,22 @@ int main() {
 //        std::cout << "takeCard().getSuit(): " << (*reserve.takeCard()).getSuit() << std::endl;
 //    }
 
-    //testHighscore:
-    Highscore highscore;
-    highscore.saveScore("Sinterklaas",400); // submit a score: nickname with obtained score
+	return 0;
+}
 
-    std::vector<std::pair<std::string, int>> highScores = highscore.getScores(); //read highscore vector from file
-    for (int i = 0; i < highScores.size(); i++) {
-        std::cout << highScores[i].first << " " << highScores[i].second << std::endl; // print line-by-line
-    }
-    return 0;
+int main() {
+	// Generate cards
+	vector<Card*> gameCards;
+	gameCards = Solitaire::generateCards();
+	cout << "Number of generated cards: " << gameCards.size() << endl;
+
+	// Divide cards
+	vector<Card*> tableauCards(gameCards.begin(), gameCards.begin() + 28);
+	vector<Card*> reserveCards(gameCards.begin() + 28, gameCards.end());
+
+	// Initiate and run game
+	Solitaire solitaireGame(tableauCards, reserveCards);
+	solitaireGame.run();
+
+	return 0;
 }

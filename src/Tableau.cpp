@@ -1,11 +1,24 @@
 #include "Tableau.h"
+using namespace std;
 
 /**
  * The constructor for the Tableau class.
  */
-Tableau::Tableau(int x, int y) : Pile(x, y) {
+Tableau::Tableau(vector<Card*> tableauCards, int numStacks) : Pile(numStacks) {
+	// Divide cards over the stacks triangularly
+	for (int i = 0; i < numStacks; i++) {
+		// Fill temporary vector with cards
+		vector<Card*> cardSet;
+		cardSet.reserve(i + 1); // Reserve space in advance
+		for (int j = 0; j < (i + 1); j++) {
+			cardSet.push_back(tableauCards[i+j]);
+		}
 
+		this->getStack(i)->addSet(cardSet);
+	}
 }
+
+Tableau::Tableau(vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7) {}
 
 /**
  * Add a set of cards to the tableau (this set can also be coming from the tableau).
@@ -13,7 +26,7 @@ Tableau::Tableau(int x, int y) : Pile(x, y) {
  * @param cards the set of cards that need to be added
  * @return 'true' if the move was carried out, 'false' if the move is not allowed
  */
-bool Tableau::addSet(int column, std::vector<Card*> cards) {
+bool Tableau::addSet(int column, vector<Card*> cards) {
     // top card of tableau is one value above bottom card of vector to be placed, and;
     // both different color (black and red or red and black)
     // OR:
@@ -24,11 +37,13 @@ bool Tableau::addSet(int column, std::vector<Card*> cards) {
         stacks[column]->appendSet(cards);
         return true;
     }
+
+    return false;
 }
 
 /**
  * Remove set of cards from tableau.
  */
-std::vector<Card*> Tableau::removeSet(int column, int index) {
+vector<Card*> Tableau::removeSet(int column, int index) {
     return stacks[column]->removeStartingFrom(index);
 }

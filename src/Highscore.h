@@ -3,6 +3,7 @@
  * \details Saves (if needed) the player's score and displays the saved highscores on screen.
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef CPP_SOLITAIRE_HIGHSCORE_H
@@ -10,7 +11,8 @@
 
 #include <fstream>
 #include <vector>
-
+#include <iostream>
+#include <algorithm>
 
 class Highscore {
 // by default private

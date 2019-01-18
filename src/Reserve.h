@@ -2,6 +2,7 @@
  * \brief Reserve class
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef CPP_SOLITAIRE_RESERVE_H
@@ -10,24 +11,31 @@
 #include "Card.h"
 #include "Stock.h"
 #include "Waste.h"
+using namespace std;
 
 class Reserve {
 // by default private
 // ------------ Variables ------------
-    Stock stock = Stock(0, 0);
-    Waste waste = Waste(0, 0);
+    Stock stock;
+    Waste waste;
 
 public: // constructor, queries and commands
-// ------------ Errors ------------
-
 // ------------ Constructor ------------
-    Reserve();
+    Reserve(vector<Card*> wasteCards);
 
 // ------------ Queries ------------
-/**
- * Move a card from the stock pile to the waste pile, to make it visible to the player.
- */
+	/**
+	 * Move a card from the stock pile to the waste pile, to make it visible to the player.
+	 */
     int getCard();
+    /**
+     * Get the stock pile
+     */
+    Stock getStock();
+	/**
+     * Get the waste pile
+     */
+    Waste getWaste();
 
 // ------------ Commands ------------
 /**

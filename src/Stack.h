@@ -2,6 +2,7 @@
  * \brief Stack class used by the Pile class
  * \authors Dries Cavelaars
  * \authors Tom Veldman
+ * \authors Bas Spijkerman
 */
 
 #ifndef C_SOLITAIRE_STACK_H
@@ -9,12 +10,12 @@
 
 #include <vector>
 #include "Card.h"
+using namespace std;
 
 class Stack {
 
     // ------------ Variables ------------
-    std::vector<Card*> cards; // vector containing all the cards in the current Stack object
-    Card card = Card(0, 0);
+    vector<Card*> cards; // vector containing all the cards in the current Stack object
 
 // constructor, queries and commands
 public:
@@ -23,7 +24,7 @@ public:
     /**
      * The constructor for the Stack class.
      */
-    explicit Stack(int numCards);
+    explicit Stack();
 
     // ------------ Queries ------------
     /**
@@ -31,16 +32,16 @@ public:
      */
     bool isEmpty();
 
-    std::vector<Card*> getCards();
+    vector<Card*> getCards();
 
     int getTopType();
 
     int getTopSuit();
 
     // ------------ Commands ------------
-    void appendSet(std::vector<Card*> cards);
+    void appendSet(vector<Card*> cards);
 
-    void addSet (std::vector<Card*> cards);
+    void addSet (vector<Card*> cards);
 
     /**
      * @param card the card that needs to be added to the stack
@@ -62,7 +63,7 @@ public:
      */
     void reverse();
 
-    std::vector<Card*> removeStartingFrom(int index);
+    vector<Card*> removeStartingFrom(int index);
 };
 
 #endif //C_SOLITAIRE_STACK_H
