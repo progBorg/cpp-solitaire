@@ -128,38 +128,65 @@ void Solitaire::printBoard() {
     std::vector<Card *> column3 = foundation.getStack(2)->getCards();
     std::vector<Card *> column4 = foundation.getStack(3)->getCards();
 
-        for (int row = 0; row < 13; row++) { // go through every row
-            if (row <= (int) column1.size() - 1) { // row is in range of this column
-                std::cout << column1[row]->getCard() << "\t"; // print the current card
-            } else {
-                std::cout << "--" << "\t"; // print absence of card
-            }
-
-            if (row <= (int) column2.size() - 1) { // row is in range of this column
-                std::cout << column2[row]->getCard() << "\t";
-            } else {
-                std::cout << "--" << "\t"; // print absence of card
-            }
-
-            if (row <= (int) column3.size() - 1) { // row is in range of this column
-                std::cout << column3[row]->getCard() << "\t";
-            } else {
-                std::cout << "--" << "\t"; // print absence of card
-            }
-
-            if (row <= (int) column4.size() - 1) { // row is in range of this column
-                std::cout << column4[row]->getCard() << "\t";
-            } else {
-                std::cout << "--" << "\t"; // print absence of card
-            }
-            std::cout << std::endl; // move on to next line
+    for (int row = 0; row < 13; row++) { // go through every row
+        if (row <= (int) column1.size() - 1) { // row is in range of this column
+            std::cout << column1[row]->getCard() << "\t"; // print the current card
+        } else {
+            std::cout << "--" << "\t"; // print absence of card
         }
+
+        if (row <= (int) column2.size() - 1) { // row is in range of this column
+            std::cout << column2[row]->getCard() << "\t";
+        } else {
+            std::cout << "--" << "\t"; // print absence of card
+        }
+
+        if (row <= (int) column3.size() - 1) { // row is in range of this column
+            std::cout << column3[row]->getCard() << "\t";
+        } else {
+            std::cout << "--" << "\t"; // print absence of card
+        }
+
+        if (row <= (int) column4.size() - 1) { // row is in range of this column
+            std::cout << column4[row]->getCard() << "\t";
+        } else {
+            std::cout << "--" << "\t"; // print absence of card
+        }
+        std::cout << std::endl; // move on to next line
+    }
 
 // ------------ Tableau ------------
     std::cout << "\nThe tableau:" << std::endl;
-    std::cout << this->tableau.getStack(0)->getCards().size() << std::endl;
-    std::cout << this->tableau.getStack(1)->getCards().size() << std::endl;
 
+    std::vector<std::vector<Card *>> matrix; // storing cards in a matrix
+    for (int stack = 0; stack < 7; stack++) {
+        matrix.push_back(tableau.getStack(stack)->getCards());
+    }
+
+    unsigned long maximum = std::max({
+        matrix[0].size(),
+        matrix[1].size(),
+        matrix[2].size(),
+        matrix[3].size(),
+        matrix[4].size(),
+        matrix[5].size(),
+        matrix[6].size()
+    });
+
+    for (int row = 0; row < maximum; row++) {
+        for (int column = 0; column < 7; column++) {
+            if (row <= (int) matrix[column].size() - 1) { // row is in range of this column
+                if (matrix[column][row]->getVisibility()) { // only if card is visible
+                    std::cout << matrix[column][row]->getCard() << "\t"; // print the current card
+                } else {
+                    std::cout << "??" << "\t"; // visibility is 'hidden', so print "??"
+                }
+            } else {
+                std::cout << "--" << "\t"; // print absence of card
+            }
+        }
+        std::cout << std::endl; // move on to next row
+    }
 }
 
 /**
