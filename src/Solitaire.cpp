@@ -69,19 +69,23 @@ void Solitaire::run() {
 
         // Parse user move
         switch (choice) {
-            case 0: // card from stock
+			case 0:
+				std::cout << "Exiting current game..." << std::endl << std::endl;
+				return;
+				break;
+            case 1: // card from stock
                 cardFromStock();
                 break;
-            case 1: // waste to tableau
+            case 2: // waste to tableau
                 wasteToTableau();
                 break;
-            case 2: // waste to foundation
+            case 3: // waste to foundation
                 wasteToFoundation();
                 break;
-            case 3: // tableau to foundation
+            case 4: // tableau to foundation
                 tableauToFoundation();
                 break;
-            case 4: // move within tableau
+            case 5: // move within tableau
                 tableauMove();
                 break;
             default:
@@ -102,67 +106,49 @@ void Solitaire::run() {
  * Prints the board to screen
  */
 void Solitaire::printBoard() {
+	// Separator
+	std::cout << "___________________________________________________" << std::endl;
+
     Waste wasteStack = this->reserve.getWaste();
     Stock stockStack = this->reserve.getStock();
 
+	// Pile descriptions
+	std::cout << "Stock\tWaste\t\tFoundation" << std::endl;
+
     // ------------ Stock ------------
-    std::cout << "Number of cards available in the stock: "
-              << stockStack.getPile().getStack(0)->getCards().size() << std::endl;
+    std::cout << stockStack.getPile().getStack(0)->getCards().size() << "\t";
 
     // ------------ Waste ------------
-    std::cout << "\nThe waste:" << std::endl;
     std::vector<Card *> wasteCards = wasteStack.getStack(0)->getCards();
     if (wasteCards.empty()) {
-        std::cout << "The waste is empty." << std::endl;
+        std::cout << "--" << "\t\t";
     } else {
         for (int index = 0; index < wasteCards.size(); index++) {
-            std::cout << wasteCards[index]->getCard() << std::endl;
+            std::cout << wasteCards[index]->getCard() << "\t\t";
         }
     }
 
     // ------------ Foundation ------------
-    std::cout << "\nThe foundation:" << std::endl;
-
-    std::vector<Card *> column1 = foundation.getStack(0)->getCards();
-    std::vector<Card *> column2 = foundation.getStack(1)->getCards();
-    std::vector<Card *> column3 = foundation.getStack(2)->getCards();
-    std::vector<Card *> column4 = foundation.getStack(3)->getCards();
-
-    for (int row = 0; row < 13; row++) { // go through every row
-        if (row <= (int) column1.size() - 1) { // row is in range of this column
-            std::cout << column1[row]->getCard() << "\t"; // print the current card
-        } else {
-            std::cout << "--" << "\t"; // print absence of card
-        }
-
-        if (row <= (int) column2.size() - 1) { // row is in range of this column
-            std::cout << column2[row]->getCard() << "\t";
-        } else {
-            std::cout << "--" << "\t"; // print absence of card
-        }
-
-        if (row <= (int) column3.size() - 1) { // row is in range of this column
-            std::cout << column3[row]->getCard() << "\t";
-        } else {
-            std::cout << "--" << "\t"; // print absence of card
-        }
-
-        if (row <= (int) column4.size() - 1) { // row is in range of this column
-            std::cout << column4[row]->getCard() << "\t";
-        } else {
-            std::cout << "--" << "\t"; // print absence of card
-        }
-        std::cout << std::endl; // move on to next line
-    }
+	// Print the top card of each foundation column
+	for (int column = 0; column < 4; column++) {
+		if (foundation.getStack(column)->getCards().size() == 0) {
+			std::cout << "--" << "\t"; // print absence of card
+		} else {
+			std::cout << foundation.getStack(column)->getCards().back()->getCard() << "\t";
+		}
+	}
 
 // ------------ Tableau ------------
-    std::cout << "\nThe tableau:" << std::endl;
+	// Separate top row and tableau
+	std::cout << std::endl << std::endl << "Tableau" << std::endl;
 
+	// Retrieve all cards and store them in a matrix
     std::vector<std::vector<Card *>> matrix; // storing cards in a matrix
     for (int stack = 0; stack < 7; stack++) {
         matrix.push_back(tableau.getStack(stack)->getCards());
     }
 
+	// Check how far down we need to go through the tableau rows
     unsigned long maximum = std::max({
         matrix[0].size(),
         matrix[1].size(),
@@ -187,46 +173,47 @@ void Solitaire::printBoard() {
         }
         std::cout << std::endl; // move on to next row
     }
+
+	// A little spacing between playing board and options
+	std::cout << "___________________________________________________" << std::endl << std::endl;
 }
 
 /**
  * Prints options to screen, let's user choose, and returns the index of the chosen option.
  */
 int Solitaire::getUserInput(std::vector<std::string> options) {
-    std::cout << "Please select one of the options below:" << std::endl;
-    // Print options
-    for (int i = 0; i < options.size(); i++) {
-        std::cout << i+1 << ") " << options[i] << std::endl;
-    }
+	//std::cout << "Please select one of the options below:" << std::endl;
+	// Print options
+	for (int i = 0; i < options.size(); i++) {
+		std::cout << i+1 << ") " << options[i] << std::endl;
+	}
+	std::cout << "0) Exit/Cancel" << std::endl;
 
-    int choice;
-    bool correctInput = false;
-    while (!correctInput) {
-        std::cin >> choice; // user choice
-        if (1 <= choice && choice <= options.size()) {
-            correctInput = true; // check if input is in selectable range
-        } else {
-            std::cout << "That is not a valid choice. Please try again." << std::endl;
-        }
-    }
+	int choice;
+	bool correctInput = false;
+	while (!correctInput) {
+		std::cout << ">>";
+		std::cin >> choice; // user choice
+		if (0 <= choice && choice <= options.size()) {
+			correctInput = true; // check if input is in selectable range
+		} else {
+			std::cout << "That is not a valid choice. Please try again." << std::endl;
+		}
+	}
 
-    return choice - 1;
+	return choice;
 }
 
 /**
  * Game move methods
  */
 void Solitaire::cardFromStock() {
-    switch (this->reserve.getCard()) {
-        case 0:
-            // Nothing out of the ordinary
-            break;
-        case -1:
-            // Waste and stock are both empty
-            std::cout << "Can't get a new card, waste and stock are empty." << std::endl;
-            break;
-    }
-    return;
+	// Get card from stock
+	if (this->reserve.getCard()) {
+		// Waste and stock are both empty
+		std::cout << "ERROR: Can't get a new card, waste and stock are empty." << std::endl;
+	}
+	return;
 }
 void Solitaire::wasteToTableau() {
     std::vector<std::string> tableauColumnOptions {
@@ -246,13 +233,13 @@ void Solitaire::wasteToTableau() {
     // Get card from waste
     Card* tempCard = reserve.takeCard();
     if (tempCard == nullptr) {
-        std::cout << "Waste is empty." << std::endl;
+        std::cout << "ERROR: Waste is empty." << std::endl;
         return;
     }
 
     // If move failed
     if (! tableau.addCard(tableauColumn, tempCard)) {
-        std::cout << "Move not possible." << std::endl;
+        std::cout << "ERROR: Move not possible." << std::endl;
     }
 }
 
@@ -260,7 +247,7 @@ void Solitaire::wasteToFoundation() {
     // Get card from waste
     Card* tempCard = reserve.takeCard();
     if (tempCard == nullptr) {
-        std::cout << "Waste is empty." << std::endl;
+        std::cout << "ERROR: Waste is empty." << std::endl;
         return;
     }
 
@@ -293,14 +280,14 @@ void Solitaire::tableauToFoundation() {
     // Get card
     Card* tempCard = this->tableau.getStack(tableauColumn)->removeCard();
     if (tempCard == nullptr) {
-        std::cout << "Waste is empty." << std::endl;
+        std::cout << "ERROR: Waste is empty." << std::endl;
         return;
     }
 
     // Move tempCard onto foundation
     // If move failed
     if (! foundation.addCard(tempCard)) {
-        std::cout << "Move not possible." << std::endl;
+        std::cout << "ERROR: Move not possible." << std::endl;
         // Put card back
         this->tableau.addSet(tableauColumn, backupStack);
     }

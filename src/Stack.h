@@ -40,7 +40,7 @@ public:
     // ------------ Commands ------------
     void appendSet(std::vector<Card*> cards);
 
-    void addSet (std::vector<Card*> cards);
+    void addSet(std::vector<Card*> cards);
 
     /**
      * @param card the card that needs to be added to the stack

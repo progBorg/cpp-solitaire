@@ -30,15 +30,14 @@ int old_main() {
 int main() {
     // Dialog options
     std::vector<std::string> gameplayOptions {
-            "Yes",
-            "No"
+            "Yes"
     };
 
     // Repeat until the user doesn't want to replay again
     bool replayGame = true;
     while (replayGame) {
         // Generate cards
-        std::vector<Card *> gameCards;
+        std::vector<Card*> gameCards;
         gameCards = Solitaire::generateCards();
 //        std::cout << "Number of generated cards: " << gameCards.size() << std::endl;
 
@@ -56,10 +55,10 @@ int main() {
         // Get user input
         std::cout << "Would you like to play a new round?" << std::endl;
         switch (solitaireGame.getUserInput(gameplayOptions)) {
-            case 0:
+            case 1:
                 replayGame = true;
                 break;
-            case 1:
+            case 0:
                 replayGame = false;
                 break;
         }

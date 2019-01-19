@@ -19,7 +19,7 @@ int Reserve::getCard() {
         return 0;
     } else {
         if (this->waste.isEmpty()) {
-            return -1; // Error: reserve is completely empty
+            return 1; // Error: reserve is completely empty
         } else { // recycle the cards back to stock
             this->stock.addSet(this->waste.recycle().getCards()); // moving the stack from the waste pile to the stock pile
             stock.reverse(); // invert order of stock to put old cards on top again
