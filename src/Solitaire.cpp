@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <random>
 #include <string>
+#include <sstream>
 #include <chrono>
 #include "Solitaire.h"
 
@@ -189,15 +190,25 @@ int Solitaire::getUserInput(std::vector<std::string> options) {
 	}
 	std::cout << "0) Exit/Cancel" << std::endl;
 
-	int choice;
+	std::string input = "";
+	int choice = 0;
 	bool correctInput = false;
 	while (!correctInput) {
+		// Get user input
 		std::cout << ">>";
-		std::cin >> choice; // user choice
-		if (0 <= choice && choice <= options.size()) {
-			correctInput = true; // check if input is in selectable range
+		std::getline(std::cin, input);
+
+		// Safely convert string to number
+		std::stringstream myStream(input);
+		// If input is indeed an integer
+		if (myStream >> choice) {
+			if (0 <= choice && choice <= options.size()) {
+				correctInput = true; // check if input is in selectable range
+			} else {
+				std::cout << "That is not a valid choice. Please try again." << std::endl;
+			}
 		} else {
-			std::cout << "That is not a valid choice. Please try again." << std::endl;
+			std::cout << "Please input a number." << std::endl;
 		}
 	}
 
