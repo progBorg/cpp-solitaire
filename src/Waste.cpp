@@ -36,8 +36,7 @@ Card* Waste::removeCard() {
  * @return the current stack object
  */
 Stack Waste::recycle() {
-    Stack* currentStack = this->getStack(0);
+    Stack currentStack = *(this->getStack(0)); // stack will be deleted, so temporarily store locally
     this->getStack(0)->removeSet();
-    return *currentStack;
+    return currentStack;
 }
-

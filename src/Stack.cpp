@@ -40,7 +40,7 @@ void Stack::appendSet(std::vector<Card*> cards) {
  * @param cards the vector of cards that replaces the current stack
  */
 void Stack::addSet(std::vector<Card*> cards) {
-    this->cards = move(cards);
+    this->cards = std::move(cards);
 }
 
 /**
