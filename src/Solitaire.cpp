@@ -29,9 +29,8 @@ std::vector<Card*> Solitaire::generateCards() {
 	for (int suit = 0; suit < 4; suit++) {
 		for (int value = 0; value < 13; value++) {
 			// Generate current card in place and add it to the vector
-			Card tempCard(suits[suit], values[value]);
-			Card* tempCardPointer = &tempCard;
-			gameCards.push_back(tempCardPointer);
+			Card* tempCard = new Card(suits[suit], values[value]);
+			gameCards.push_back(tempCard);
 		}
 	}
 
@@ -124,7 +123,7 @@ void Solitaire::printBoard() {
 	std::cout << "\nThe foundation:" << std::endl;
 
 	// save all the cards in a matrix
-	auto matrix = new std::vector<Card *>;
+	std::vector<std::vector<Card *>> matrix;
 	for (int column = 0; column < 4; column++) {
 		matrix[column] = this->foundation.getStack(column)->getCards();
 	}
