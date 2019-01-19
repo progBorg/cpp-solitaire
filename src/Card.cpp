@@ -11,7 +11,7 @@
 Card::Card(int inputSuit, int inputType) {
 	this->suit = inputSuit;
 	this->type = inputType;
-	this->isVisible = false;
+	this->isVisible = true; // All cards are visible by default
 }
 
 // ------------ Queries ------------

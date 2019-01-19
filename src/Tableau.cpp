@@ -1,22 +1,30 @@
 #include "Tableau.h"
+#include <iostream>
 
 /**
  * The constructor for the Tableau class.
  */
 Tableau::Tableau(std::vector<Card*> tableauCards, int numStacks) : Pile(numStacks) {
+	int cardCounter = 0; // Keeps track of which card to push next
 	// Divide cards over the stacks triangularly
 	for (int i = 0; i < numStacks; i++) {
 		// Fill temporary vector with cards
 		std::vector<Card*> cardSet;
+		cardSet.clear();
 		cardSet.reserve(i + 1); // Reserve space in advance
 		for (int j = 0; j < (i + 1); j++) {
-			cardSet.push_back(tableauCards[i+j]);
+			cardSet.push_back(tableauCards[cardCounter]);
+			cardSet.back()->setVisibility(false);
+			cardCounter++;
 		}
+		// Undo invisibility of top card
+		cardSet.back()->setVisibility(true);
 
 		this->getStack(i)->addSet(cardSet);
 	}
 }
 
+// Set default constructor to construct 7 columns
 Tableau::Tableau(std::vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7) {}
 
 /**
