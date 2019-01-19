@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <random>
 #include <string>
+#include <chrono>
 #include "Solitaire.h"
 
 // ------------ Constructor ------------
@@ -34,9 +35,11 @@ std::vector<Card*> Solitaire::generateCards() {
 		}
 	}
 
-	// shuffle cards
-	auto rng = std::default_random_engine {};
-	shuffle(std::begin(gameCards), std::end(gameCards), rng);
+	// shuffle cards, using the current time as seed for the random generator
+	unsigned seed = std::chrono::system_clock::now()
+						   .time_since_epoch()
+						   .count();
+	shuffle(std::begin(gameCards), std::end(gameCards), std::default_random_engine(seed));
 
 	return gameCards;
 }
