@@ -123,9 +123,7 @@ void Solitaire::printBoard() {
     if (wasteCards.empty()) {
         std::cout << "--" << "\t\t";
     } else {
-        for (int index = 0; index < wasteCards.size(); index++) {
-            std::cout << wasteCards[index]->getCard() << "\t\t";
-        }
+		std::cout << wasteCards.back()->getCard() << "\t\t";
     }
 
     // ------------ Foundation ------------
@@ -159,7 +157,9 @@ void Solitaire::printBoard() {
         matrix[6].size()
     });
 
+	// Loop through all rows that need printing
     for (int row = 0; row < maximum; row++) {
+		// Loop through all columns
         for (int column = 0; column < 7; column++) {
             if (row <= (int) matrix[column].size() - 1) { // row is in range of this column
                 if (matrix[column][row]->getVisibility()) { // only if card is visible
