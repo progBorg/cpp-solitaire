@@ -42,7 +42,6 @@ class Solitaire {
 	void tableauMove();
 
 public: // constructor, queries and commands
-
 // ------------ Constructor ------------
     Solitaire(std::vector<Card*> tableauCards, std::vector<Card*> reserveCards);
 

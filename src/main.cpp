@@ -30,7 +30,8 @@ int old_main() {
 int main() {
     // Dialog options
     std::vector<std::string> gameplayOptions {
-            "Yes"
+            "Yes",
+            "No"
     };
 
     // Repeat until the user doesn't want to replay again
@@ -58,6 +59,7 @@ int main() {
             case 1:
                 replayGame = true;
                 break;
+            case 2:
             case 0:
                 replayGame = false;
                 break;
