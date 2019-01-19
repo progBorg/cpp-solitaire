@@ -147,10 +147,10 @@ void Solitaire::printBoard() {
     Stock stockStack = this->reserve.getStock();
 
 	// Pile descriptions
-	std::cout << "Stock\tWaste\tFoundation" << std::endl;
+	std::cout << "Stock\tWaste\t\tFoundation" << std::endl;
 
     // ------------ Stock ------------
-    std::cout << stockStack.getPile().getStack(0)->getCards().size() << "\t\t";
+    std::cout << stockStack.getPile().getStack(0)->getCards().size() << "\t";
 
     // ------------ Waste ------------
     std::vector<Card *> wasteCards = wasteStack.getStack(0)->getCards();
@@ -173,6 +173,7 @@ void Solitaire::printBoard() {
 // ------------ Tableau ------------
 	// Separate top row and tableau
 	std::cout << std::endl << std::endl << "Tableau" << std::endl;
+	std::cout << "(1)\t(2)\t(3)\t(4)\t(5)\t(6)\t(7)" << std::endl;
 
 	// Retrieve all cards and store them in a matrix
     std::vector<std::vector<Card *>> matrix; // storing cards in a matrix
@@ -317,6 +318,10 @@ void Solitaire::tableauToFoundation() {
     // Get user input
     std::cout << "What column top-card to move to the foundations?" << std::endl;
     int tableauColumn = getUserInput(tableauColumnOptions);
+    if (tableauColumn == 0) {
+		return; // Return if desired
+	}
+	tableauColumn--; // Convert to vector index
 
     // Back up tableau stack
     std::vector<Card*> backupStack = this->tableau.getStack(tableauColumn)->getCards();
@@ -333,8 +338,13 @@ void Solitaire::tableauToFoundation() {
     if (! foundation.addCard(tempCard)) {
         std::cout << "ERROR: Move not possible." << std::endl;
         // Put card back
-        this->tableau.addSet(tableauColumn, backupStack);
-    }
+        this->tableau.getStack(tableauColumn)->addSet(backupStack);
+    } else {
+		// Make top card visible if invisible
+		if (this->tableau.getStack(tableauColumn)->getCards().back()->getVisibility() == false) {
+			this->tableau.getStack(tableauColumn)->getCards().back()->setVisibility(true);
+		}
+	}
 
 }
 
@@ -350,9 +360,15 @@ void Solitaire::tableauMove() {
     };
 
     std::cout << "Move the card(s) from what column?" << std::endl;
-    int fromColumn = getUserInput(tableauColumnOptions) - 1;
+    int fromColumn = getUserInput(tableauColumnOptions);
+    if (fromColumn == 0) {
+		return; // Return if desired
+	}
+	fromColumn--; // Convert to vector index
+
     std::vector<Card*> entireColumn = this->tableau.getStack(fromColumn)->getCards(); // also backup
 
+	// Retrieve available cards
     std::vector<std::string> cardOptions;
     for (int index = 0; index < entireColumn.size(); index++) {
         cardOptions.push_back(std::to_string(entireColumn[index]->getCard()));
@@ -360,13 +376,28 @@ void Solitaire::tableauMove() {
 
     std::cout << "Move which card(s)? (in case of multiple cards, select uppermost)" << std::endl;
     int fromRow = getUserInput(cardOptions);
+	if (fromRow == 0) {
+		return; // Return if desired
+	}
+	fromRow--; // Convert to vector index
 
     // Get user input
     std::cout << "What column to move the card(s) to?" << std::endl;
     int toColumn = getUserInput(tableauColumnOptions);
-    if (!tableau.addSet(toColumn, tableau.removeSet(fromColumn, fromRow))) { // if failed
+    if (toColumn == 0) {
+		return; // Return if desired
+	}
+	toColumn--; // Convert to vector index
+
+    if (!tableau.addSet(toColumn, tableau.removeSet(fromColumn, fromRow))) {
+		// if move failed
         std::cout << "ERROR: Move not possible." << std::endl;
         // Put card back
-        this->tableau.addSet(fromColumn, entireColumn); //TODO it will go validation again... not possible!
-    }
+        this->tableau.getStack(fromColumn)->addSet(entireColumn);
+    } else {
+		// Make top card visible if invisible
+		if (this->tableau.getStack(fromColumn)->getCards().back()->getVisibility() == false) {
+			this->tableau.getStack(fromColumn)->getCards().back()->setVisibility(true);
+		}
+	}
 }

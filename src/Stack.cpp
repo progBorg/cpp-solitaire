@@ -82,7 +82,7 @@ std::vector<Card*> Stack::removeStartingFrom(int index) {
 
     // Remove cards
     std::vector<Card*> lastCards(first, last);
-    cards.resize(index-1);
+    cards.resize(index);
 
     return lastCards;
 }
