@@ -7,7 +7,7 @@
  */
 Pile::Pile(int numStacks) {
 	for (int index = 0; index < numStacks; index++) {
-		Stack* stack = new Stack; // Create empty stack
+        auto * stack = new Stack; // Create empty stack
 		stacks.push_back(stack); // Add stack to pile
 	}
 }

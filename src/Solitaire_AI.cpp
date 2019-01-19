@@ -6,9 +6,7 @@
 #include <iostream>
 #include "Solitaire_AI.h"
 
-Solitaire_AI::Solitaire_AI() {
-
-}
+Solitaire_AI::Solitaire_AI() = default;
 
 int Solitaire_AI::determineMove(Waste waste, Stock stock, Tableau tableau, Foundation foundation) {
 	// Not yet implemented

@@ -5,9 +5,7 @@
 /**
  * The constructor for the Stack class.
  */
-Stack::Stack() {
-
-}
+Stack::Stack() = default;
 
 // ------------ Queries ------------
 /**
@@ -76,12 +74,10 @@ void Stack::reverse() {
 }
 
 std::vector<Card*> Stack::removeStartingFrom(int index) {
-	// Create iterators
-    std::vector<Card*>::const_iterator first = cards.begin() + index;
-    std::vector<Card*>::const_iterator last = cards.end();
+    // copy last section from vector
+    std::vector<Card*> lastCards(cards.begin() + index, cards.end());
 
-    // Remove cards
-    std::vector<Card*> lastCards(first, last);
+    // resize original vector to exclude copied values
     cards.resize(index);
 
     return lastCards;

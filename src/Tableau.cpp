@@ -1,5 +1,6 @@
 #include "Tableau.h"
 #include <iostream>
+#include <utility>
 
 /**
  * The constructor for the Tableau class.
@@ -25,7 +26,7 @@ Tableau::Tableau(std::vector<Card*> tableauCards, int numStacks) : Pile(numStack
 }
 
 // Set default constructor to construct 7 columns
-Tableau::Tableau(std::vector<Card*> tableauCards) : Tableau::Tableau(tableauCards, 7) {}
+Tableau::Tableau(std::vector<Card*> tableauCards) : Tableau::Tableau(std::move(tableauCards), 7) {}
 
 /**
  * Add a set of cards to the tableau (this set can also be coming from the tableau).
@@ -49,6 +50,12 @@ bool Tableau::addSet(int column, std::vector<Card*> cards) {
     return false;
 }
 
+/**
+ * Add one card to the tableau.
+ * @param column the column where the set needs to move to (columns 0 - 6)
+ * @param card the card that need to be added
+ * @return 'true' if the move was carried out, 'false' if the move is not allowed
+ */
 bool Tableau::addCard(int column, Card* card) {
 	// top card of tableau is one value above bottom card of vector to be placed, and;
     // both different color (black and red or red and black)

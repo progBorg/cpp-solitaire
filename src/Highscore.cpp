@@ -27,6 +27,7 @@ std::vector<std::pair<std::string, int>> Highscore::getScores() {
         scores.push_back(score);
     }
 
+    highScores.reserve(names.size());
     for (int i = 0; i < names.size(); i++) { // create vecor pairs from the variables
         highScores.emplace_back(std::make_pair(names[i],scores[i]));
     }

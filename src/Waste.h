@@ -20,7 +20,7 @@ class Waste : public Pile {
 public:
 
 // ------------ Constructor ------------
-    Waste(int numStacks); // Inherits from Pile
+    explicit Waste(int numStacks); // Inherits from Pile
     Waste();
 
 // ------------ Queries ------------

@@ -31,7 +31,7 @@ std::vector<Card*> Solitaire::generateCards() {
     for (int suit = 0; suit < 4; suit++) {
         for (int value = 0; value < 13; value++) {
             // Generate current card in place and add it to the vector
-            Card* tempCard = new Card(suits[suit], values[value]);
+            auto * tempCard = new Card(suits[suit], values[value]);
             gameCards.push_back(tempCard);
         }
     }
@@ -60,7 +60,7 @@ void Solitaire::run() {
             "Move cards within Tableau"
     };
 
-    bool winnerWinnerChickenDinner = false;
+    bool winnerWinnerChickenDinner = false; // set to 'true' to skip game, go directly to highscore process
     while (!winnerWinnerChickenDinner) {
         printBoard();
 
@@ -73,7 +73,6 @@ void Solitaire::run() {
 			case 0:
 				std::cout << "Exiting current game..." << std::endl << std::endl;
 				return;
-				break;
             case 1: // card from stock
                 cardFromStock();
                 break;
@@ -92,7 +91,6 @@ void Solitaire::run() {
             default:
                 std::cout << "A user input error has occured, exiting..." << std::endl;
                 return;
-                break;
         }
 
         winnerWinnerChickenDinner = foundation.isGameOver();
@@ -103,7 +101,6 @@ void Solitaire::run() {
     // ---------- Highscore system ----------
     std::cout << "Would you like to save your score?" << std::endl;
 
-
     std::vector<std::string> highscoreOptions {
             "Yes",
             "No"
@@ -111,17 +108,17 @@ void Solitaire::run() {
 
     Highscore highscore;
     switch (getUserInput(highscoreOptions)) {
-        case 1: {// save score
+        case 1: { // save score
             std::cout << "What is your name?" << std::endl;
             std::string name;
             std::cin >> name;
             highscore.saveScore(name, score);
             break;
         }
-        case 0: {// exit highscore sytem
+        case 0: { // exit highscore sytem
             return;
         }
-        default: {// go on to displaying saved scores
+        default: { // go on to displaying saved scores
             break;
         }
     }
@@ -132,8 +129,6 @@ void Solitaire::run() {
     for (int row = 0; row < scores.size(); row++) {
         std::cout << scores[row].first << "\t" << scores[row].second << std::endl;
     }
-
-    return;
 }
 
 /**
@@ -163,7 +158,7 @@ void Solitaire::printBoard() {
     // ------------ Foundation ------------
 	// Print the top card of each foundation column
 	for (int column = 0; column < 4; column++) {
-		if (foundation.getStack(column)->getCards().size() == 0) {
+		if (foundation.getStack(column)->getCards().empty()) {
 			std::cout << "---" << "\t"; // print absence of card
 		} else {
 			std::cout << foundation.getStack(column)->getCards().back()->getCard() << "\t";
@@ -217,7 +212,6 @@ void Solitaire::printBoard() {
  * Prints options to screen, let's user choose, and returns the index of the chosen option.
  */
 int Solitaire::getUserInput(std::vector<std::string> options) {
-	//std::cout << "Please select one of the options below:" << std::endl;
 	// Print options
 	for (int i = 0; i < options.size(); i++) {
 		std::cout << i+1 << ") " << options[i] << std::endl;
@@ -258,8 +252,8 @@ void Solitaire::cardFromStock() {
 		// Waste and stock are both empty
 		std::cout << "ERROR: Can't get a new card, waste and stock are empty." << std::endl;
 	}
-	return;
 }
+
 void Solitaire::wasteToTableau() {
     std::vector<std::string> tableauColumnOptions {
             "Column 1",
@@ -273,35 +267,39 @@ void Solitaire::wasteToTableau() {
 
     // Get user input
     std::cout << "What column to move the card to?" << std::endl;
-    int tableauColumn = getUserInput(tableauColumnOptions);
+    int tableauColumn = getUserInput(tableauColumnOptions) - 1;
 
     // Get card from waste
-    Card* tempCard = reserve.takeCard();
+    Card* tempCard = reserve.topCard();
     if (tempCard == nullptr) {
         std::cout << "ERROR: Waste is empty." << std::endl;
         return;
     }
 
-    // If move failed
-    if (! tableau.addCard(tableauColumn, tempCard)) {
+    // If successful move
+    if (tableau.addCard(tableauColumn, tempCard)) {
+        score += 5;
+        reserve.takeCard(); // remove the card from waste
+    } else {
         std::cout << "ERROR: Move not possible." << std::endl;
     }
 }
 
 void Solitaire::wasteToFoundation() {
     // Get card from waste
-    Card* tempCard = reserve.takeCard();
+    Card* tempCard = reserve.topCard();
     if (tempCard == nullptr) {
         std::cout << "ERROR: Waste is empty." << std::endl;
         return;
     }
 
-    // If move failed
-    if (! foundation.addCard(tempCard)) {
+    // If successful move
+    if (foundation.addCard(tempCard)) {
+        reserve.takeCard(); // remove the card from waste
+        score += 10;
+    } else {
         std::cout << "Move not possible." << std::endl;
     }
-
-    return;
 }
 
 void Solitaire::tableauToFoundation() {
@@ -340,9 +338,11 @@ void Solitaire::tableauToFoundation() {
         // Put card back
         this->tableau.getStack(tableauColumn)->addSet(backupStack);
     } else {
+        score += 10;
 		// Make top card visible if invisible
-		if (this->tableau.getStack(tableauColumn)->getCards().back()->getVisibility() == false) {
+		if (! this->tableau.getStack(tableauColumn)->getCards().back()->getVisibility()) {
 			this->tableau.getStack(tableauColumn)->getCards().back()->setVisibility(true);
+			score += 5; // points for turning over Tableau card
 		}
 	}
 
@@ -370,8 +370,13 @@ void Solitaire::tableauMove() {
 
 	// Retrieve available cards
     std::vector<std::string> cardOptions;
+    int offset = 0;
     for (int index = 0; index < entireColumn.size(); index++) {
-        cardOptions.push_back(std::to_string(entireColumn[index]->getCard()));
+        if (entireColumn[index]->getVisibility()) { // if visible add to vector
+            cardOptions.push_back(std::to_string(entireColumn[index]->getCard()));
+        } else {
+            offset++; // hidden cards count as extra row, but is not shown as a choice to user
+        }
     }
 
     std::cout << "Move which card(s)? (in case of multiple cards, select uppermost)" << std::endl;
@@ -379,7 +384,7 @@ void Solitaire::tableauMove() {
 	if (fromRow == 0) {
 		return; // Return if desired
 	}
-	fromRow--; // Convert to vector index
+	fromRow += offset - 1; // Convert to vector index and add offset (amount of hidden cards)
 
     // Get user input
     std::cout << "What column to move the card(s) to?" << std::endl;
@@ -394,10 +399,11 @@ void Solitaire::tableauMove() {
         std::cout << "ERROR: Move not possible." << std::endl;
         // Put card back
         this->tableau.getStack(fromColumn)->addSet(entireColumn);
-    } else {
+    } else { // if successful move
 		// Make top card visible if invisible
-		if (this->tableau.getStack(fromColumn)->getCards().back()->getVisibility() == false) {
+		if (! this->tableau.getStack(fromColumn)->getCards().back()->getVisibility()) {
 			this->tableau.getStack(fromColumn)->getCards().back()->setVisibility(true);
+			score += 5; // get points for turning over tableau card
 		}
 	}
 }

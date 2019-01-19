@@ -25,7 +25,7 @@ public:
 	 * @param numStacks the amount of stacks in one Pile object
 	 * @param numCards the amount of cards per stack
 	 */
-    Pile(int numStacks);
+    explicit Pile(int numStacks);
 
 	// ------------ Queries ------------
 	/**

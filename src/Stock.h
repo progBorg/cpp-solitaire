@@ -20,7 +20,7 @@ class Stock : public Pile {
 public:
 
     // ------------ Constructor ------------
-    Stock(int numStacks); // Inherits from pile
+    explicit Stock(int numStacks); // Inherits from pile
     Stock();
 
     // ------------ Queries ------------

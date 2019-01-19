@@ -1,12 +1,12 @@
 #include "Reserve.h"
-#include "Stock.h"
+#include <utility> #include "Stock.h"
 #include "Waste.h"
 
 /**
  * Construct Reserve, initializing stock and waste to empty stacks
  */
 Reserve::Reserve(std::vector<Card*> wasteCards) : stock(), waste() {
-	this->stock.getStack(0)->addSet(wasteCards); // Add the cards to the waste pile
+	this->stock.getStack(0)->addSet(std::move(wasteCards)); // Add the cards to the waste pile
 }
 
 /**
@@ -34,12 +34,16 @@ int Reserve::getCard() {
  * @return pointer to the card object of the top card on the waste pile
  */
 Card* Reserve::takeCard() {
-    Card* lastCard = this->waste.removeCard();
-    if (lastCard != nullptr) {
-        return lastCard;
-    } else {
-        return nullptr; // error: no card in waste to be taken
-    }
+    return this->waste.removeCard();
+}
+
+/**
+ * Only returns the top card from the waste pile, without removing it.
+ * @return pointer to the card object of the top card on the waste pile
+ */
+Card* Reserve::topCard() {
+    std::vector<Card *> wasteCards = waste.getStack(0)->getCards();
+    return wasteCards.back();
 }
 
 /**

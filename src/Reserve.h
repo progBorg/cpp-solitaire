@@ -20,7 +20,7 @@ class Reserve {
 
 public: // constructor, queries and commands
 // ------------ Constructor ------------
-    Reserve(std::vector<Card*> wasteCards);
+    explicit Reserve(std::vector<Card*> wasteCards);
 
 // ------------ Queries ------------
 	/**
@@ -43,7 +43,13 @@ public: // constructor, queries and commands
  */
     Card* takeCard();
 
-};
+/**
+ * Only returns the top card from the waste pile, without removing it.
+ * @return pointer to the card object of the top card on the waste pile
+ */
+    Card* topCard();
+
+    };
 
 
 #endif //CPP_SOLITAIRE_RESERVE_H

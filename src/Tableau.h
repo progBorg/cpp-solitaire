@@ -20,7 +20,7 @@ class Tableau : public Pile {
 public:
     // ------------ Constructor ------------
     Tableau(std::vector<Card*> tableauCards, int numStacks); // Inherits from pile
-    Tableau(std::vector<Card*> tableauCards);
+    explicit Tableau(std::vector<Card*> tableauCards);
 
     // ------------ Queries ------------
 

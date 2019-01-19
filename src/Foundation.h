@@ -17,7 +17,7 @@ class Foundation : public Pile {
 public: // constructor, queries and commands
 
 // ------------ Constructor ------------
-    Foundation(int numStacks); // Inherits from pile
+    explicit Foundation(int numStacks); // Inherits from pile
 	Foundation();
 
 // ------------ Queries ------------
